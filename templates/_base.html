@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+  {% block title %}{% endblock title %}
+    </title>
+
+    {% block head %}
+    {% include 'includes/head.html' %}
+    {% endblock head %}
+
+</head>
+<body>
+  <!--Main Wrapper-->
+	<div class="wrapper">
+    {% include 'includes/header.html' %}
+
+
+    {% block content %}
+    {% endblock content %}
+
+    {% block footer %}
+      {% include 'includes/footer.html' %}
+    {% endblock footer %}
+  </div>
+
+	<!-- Modal Popup End -->
+	<script src="assets/js/scripts.js"></script>
+	<script src="assets/js/functions.js"></script>
+
+</body>
+</html>
