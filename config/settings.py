@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     
     # Local Apps
     'pages.apps.PagesConfig',
+    'accounts.apps.AccountsConfig',
     
     
 ]
@@ -145,3 +146,12 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# User Configuration
+AUTH_USER_MODEL = 'accounts.User'
+
+AUTHENTICATION_BACKENDS = [
+    'accounts.authentications.PhoneBackend',
+    'django.contrib.auth.backends.ModelBackend',
+
+]
