@@ -1,17 +1,19 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>
-  {% block title %}{% endblock title %}
-    </title>
 
-    {% block head %}
-    {% include 'includes/head.html' %}
-    {% endblock head %}
+<head>
+  <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{% block title %}{% endblock title %}</title>
+  
+  {% include 'includes/head.html' %}
 
 </head>
+
+
+
 <body>
   <!--Main Wrapper-->
 	<div class="wrapper">
@@ -21,14 +23,14 @@
     {% block content %}
     {% endblock content %}
 
-    {% block footer %}
-      {% include 'includes/footer.html' %}
-    {% endblock footer %}
+
+    {% include 'includes/footer.html' %}
+
   </div>
 
 	<!-- Modal Popup End -->
-	<script src="assets/js/scripts.js"></script>
-	<script src="assets/js/functions.js"></script>
+	<script src="{% static 'js/scripts.js' %}"></script>
+	<script src="{% static 'js/functions.js' %}"></script>
 
 </body>
 </html>

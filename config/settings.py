@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # Local Apps
     'pages.apps.PagesConfig',
     'accounts.apps.AccountsConfig',
+    'vendors.apps.VendorsConfig',
     
     
 ]
@@ -134,7 +135,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = BASE_DIR / 'staticfile'
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
@@ -151,7 +152,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.User'
 
 AUTHENTICATION_BACKENDS = [
-    'accounts.authentications.PhoneBackend',
     'django.contrib.auth.backends.ModelBackend',
+    'accounts.authentications.PhoneBackend',
 
 ]
