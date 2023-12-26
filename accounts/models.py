@@ -59,14 +59,14 @@ class User(AbstractBaseUser):
     
     
 def image_path_profile(instance, filename):
-    return f'img/{instance.user.phone_number}/{instance.filed_name}/{filename}'
+    return f'user_img/{instance.user.phone_number}/{instance.first_name}/{filename}'
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     province = models.CharField(max_length=20, null=True, blank=True)
     city = models.CharField(max_length=50, null=True, blank=True)
-    address = models.TextField(null=True, blank=True)
+    address = models.CharField(max_length=250, null=True, blank=True)
     img_cover = models.ImageField(upload_to=image_path_profile, null=True, blank=True)
     img_profile = models.ImageField(upload_to=image_path_profile, null=True, blank=True)
     latitude = models.CharField(max_length=50, blank=True, null=True)

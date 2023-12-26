@@ -1,0 +1,213 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block title %}
+  Vendor Profile
+{% endblock %}
+
+{% block content %}
+  <!-- Main Section Start -->
+  <div class="main-section">
+    <!-- load cover vendor -->
+    {% include 'includes/v_cover.html' %}
+
+    <div class="page-section account-header buyer-logged-in">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <!-- load Vendor sidebar -->
+            {% include 'includes/v_sidebar.html' %}
+          </div>
+
+          <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+            <div class="user-dashboard loader-holder">
+              <div class="user-holder">
+                <h2>Manage Your Restaurant</h2>
+                <!-- Show Message -->
+                {% include 'includes/show_message.html' %}
+                <!-- My Restaurants Form Start -->
+                <form action="{% url 'vendors:vendor_edit' %}" method="POST" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <div class="form-fields-set">
+                    <ul>
+                      <li>
+                        <div class="row">
+                          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="restaurant-info">
+                              <div class="img-holder">
+                                <ul class="foodbakery-gallery-holder">
+                                  <li class="gal-img">
+                                    <div class="drag-list">
+                                      <div class="item-thumb">
+                                        
+                                        {% if request.user.vendor_user.profile_img %}
+                                          <img class="thumbnail" src="{{ request.user.vendor_user.profile_img.url }}" alt="Profile Picture" />
+                                        {% else %}
+                                          <img class="thumbnail" src="{% static 'images/default-profile.png' %}" alt="Profile Picture" />
+                                        {% endif %}
+                                      </div>
+                                    </div>
+                                  </li>
+                                </ul>
+                              </div>
+                              <div class="text-holder">
+                                <label>Update Profile Picture</label>
+                                <div class="upload-gallery">{{ form.profile_img }}</div>
+                              </div>
+                              <label class="text-danger">{{ form.profile_img.errors }}</label>
+                            </div>
+                          </div>
+                          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="restaurant-info">
+                              <div class="img-holder">
+                                <ul class="foodbakery-gallery-holder">
+                                  <li class="gal-img">
+                                    <div class="drag-list">
+                                      <div class="item-thumb">
+                                        {% if request.user.vendor_user.cover_img %}
+                                          <img class="thumbnail" src="{{ request.user.vendor_user.cover_img.url }}" alt="Cover Photo" />
+                                        {% else %}
+                                          <img class="thumbnail" src="{% static 'images/default-cover.png' %}" alt="Cover Photo" />
+                                        {% endif %}
+                                      </div>
+                                    </div>
+                                  </li>
+                                </ul>
+                              </div>
+                              <div class="text-holder">
+                                <label>Update Cover Photo</label>
+                                <div class="upload-gallery">{{ form.cover_img }}</div>
+                              </div>
+                              <label class="text-danger">{{ form.cover_img.errors }}</label>
+                            </div>
+                          </div>
+                          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="restaurant-info">
+                              <div class="img-holder">
+                                <ul class="foodbakery-gallery-holder">
+                                  <li class="gal-img">
+                                    <div class="drag-list">
+                                      <div class="item-thumb">
+                                        <img class="thumbnail" src="{{request.user.vendor_user.license_file.url }}" alt="Vendor License" />
+                                      </div>
+                                    </div>
+                                  </li>
+                                </ul>
+                              </div>
+                              <div class="text-holder">
+                                <label>Update License</label>
+                                <div class="upload-gallery">{{ form.license_file }}</div>
+                              </div>
+                              <label class="text-danger">{{ form.license_file.errors }}</label>
+                            </div>
+                          </div>
+                          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="field-holder">
+                              <label>Restaurant name *</label>
+                              {{ form.name }}
+                              {{ form.name.errors }}
+                            </div>
+                          </div>
+                          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="field-holder">
+                              <label>First Name *</label>
+                              {{ form_p.first_name }}
+                              {{ form_p.first_name.errors }}
+                            </div>
+                          </div>
+
+                          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="field-holder">
+                              <label>Last Name *</label>
+                              {{ form_p.last_name }}
+                              {{ form_p.last_name.errors }}
+                            </div>
+                          </div>
+
+
+
+                          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="field-holder">
+                              <label>Address *</label>
+                              {{ form_p.address }}
+                              {{ form_p.address.errors }}
+                              <small class="text-muted float-right">powered by Google</small>
+                            </div>
+                          </div>
+
+                          
+                      
+                          
+
+                          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="field-holder">
+                              <label>State *</label>
+                              {{ form_p.province }}
+                              {{ form_p.province.errors }}
+                            </div>
+                          </div>
+
+                          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="field-holder">
+                              <label>City *</label>
+                              {{ form_p.city }}
+                              {{ form_p.city.errors }}
+                            </div>
+                          </div>
+
+                      
+
+                          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="field-holder">
+                              <label>Latitude *</label>
+                              {{ form_p.latitude }}
+                              {{ form_p.latitude.errors }}
+                            </div>
+                          </div>
+
+                          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="field-holder">
+                              <label>Longitude *</label>
+                              {{ form_p.longitude }}
+                              {{ form_p.longitude.errors }}
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                    <div>
+                      <div class="field-holder">
+                        <div class="payment-holder input-button-loader">
+                          <input type="submit" value="Update Restaurant" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                {{form.p.errors}}
+                {{form.errors}}
+                <!-- My Restaurants Form End -->
+                <!-- My Restaurants Form End -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Section End -->
+{% endblock %}
+
+{% if messages %}
+  {% for message in messages %}
+    {{ message }}
+  {% endfor %}
+{% endif %}
+
+<form action="{% url 'vendors:vendor_edit' %}" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+
+  {{ form_p.as_p }}
+  <input type="submit" value="Update" />
+</form>

@@ -1,0 +1,167 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block title %}
+  Profile Settings
+{% endblock %}
+
+{% block content %}
+  <div class="main-section">
+    {% include 'includes/c_cover.html' %}
+    <div class="page-section account-header buyer-logged-in">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <!-- Load the sidebar here -->
+            {% include 'includes/c_sidebar.html' %}
+          </div>
+          <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+            <div class="user-dashboard loader-holder">
+              <div class="user-holder">
+                <h5 class="text-uppercase mb-5">Profile Settings</h5>
+                <!-- Show Message -->
+                {% include 'includes/show_message.html' %}
+                <form action="{% url 'edit_profile' %}" method="POST" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <div class="form-fields-set">
+                    <ul>
+                      <li>
+                        <div class="row">
+                          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="restaurant-info">
+                              <div class="img-holder">
+                                <ul class="foodbakery-gallery-holder">
+                                  <li class="gal-img">
+                                    <div class="drag-list">
+                                      <div class="item-thumb">
+                                        {% if profile.profile_picture %}
+                                          <img class="thumbnail" src="{{ profile.profile_picture.url }}" alt="Profile Picture" />
+                                        {% else %}
+                                          <img class="thumbnail" src="{% static 'images/default-profile.png' %}" alt="Profile Picture" />
+                                        {% endif %}
+                                      </div>
+                                    </div>
+                                  </li>
+                                </ul>
+                              </div>
+                              <div class="text-holder">
+                                <label>Update Profile Picture</label>
+                                <div class="upload-gallery">{{ form_c.img_profile }}</div>
+                              </div>
+                              <label class="text-danger">{{ form_c.img_profile.errors }}</label>
+                            </div>
+                          </div>
+                          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="restaurant-info">
+                              <div class="img-holder">
+                                <ul class="foodbakery-gallery-holder">
+                                  <li class="gal-img">
+                                    <div class="drag-list">
+                                      <div class="item-thumb">
+                                        {% if request.user.profile.img_profile %}
+                                          <img class="thumbnail" src="{{ request.user.profile.img_profile.url }}" alt="Cover Photo" />
+                                        {% else %}
+                                          <img class="thumbnail" src="{% static 'images/default-cover.png' %}" alt="Cover Photo" />
+                                        {% endif %}
+                                      </div>
+                                    </div>
+                                  </li>
+                                </ul>
+                              </div>
+                              <div class="text-holder">
+                                <label>Update Cover Photo</label>
+                                <div class="upload-gallery">{{ form_c.img_cover }}</div>
+                              </div>
+                              <label class="text-danger">{{ form_c.img_cover.errors }}</label>
+                            </div>
+                          </div>
+
+                          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <label class="text-danger">{{ form_c.first_name.errors }}</label>
+
+                            <div class="field-holder">
+                              <label>First Name <span style="color: red;">*</span></label>
+                              {{ form_c.first_name }}
+                            </div>
+                          </div>
+                          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <label class="text-danger">{{ form_c.last_name.errors }}</label>
+                            <div class="field-holder">
+                              <label>Last Name <span style="color: red;">*</span></label>
+                              {{ form_c.last_name }}
+                            </div>
+                          </div>
+                          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="field-holder">
+                              <label>Phone Number <span style="color: red;">*</span></label>
+                              {{ form.phone_number }}
+                              <span class="text-danger">{{ form.phone_number.errors }}</span>
+                            </div>
+                          </div>
+                          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <label class="text-danger">{{ form.email.errors }}</label>
+                            <div class="field-holder">
+                              <label>Email <span style="color: red;">*</span></label>
+                              {{ form.email }}
+                            </div>
+                          </div>
+                          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <label class="text-danger">{{ form_c.address.errors }}</label>
+                            <div class="field-holder">
+                              <label>Address <span style="color: red;">*</span></label>
+                              {{ form_c.address }}
+                              <small class="text-muted float-right">powered by Google</small>
+                            </div>
+                          </div>
+
+                          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <label class="text-danger">{{ form_c.province.errors }}</label>
+                            <div class="field-holder">
+                              <label>State <span style="color: red;">*</span></label>
+                              {{ form_c.province }}
+                            </div>
+                          </div>
+
+                          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <label class="text-danger">{{ form_c.city.errors }}</label>
+                            <div class="field-holder">
+                              <label>City <span style="color: red;">*</span></label>
+                              {{ form_c.city }}
+                            </div>
+                          </div>
+
+                          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <label class="text-danger">{{ form_c.latitude.errors }}</label>
+                            <div class="field-holder">
+                              <label>Latitude *</label>
+                              {{ form_c.latitude }}
+                            </div>
+                          </div>
+
+                          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <label class="text-danger">{{ form_c.longitude.errors }}</label>
+                            <div class="field-holder">
+                              <label>Longitude *</label>
+                              {{ form_c.longitude }}
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                    <div>
+                      <div class="field-holder">
+                        <div class="payment-holder input-button-loader">
+                          <input type="submit" value="Update Profile" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Main Section End -->
+{% endblock %}

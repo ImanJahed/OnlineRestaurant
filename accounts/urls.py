@@ -1,5 +1,5 @@
 from django.urls import path
-
+from django.contrib.auth import views as auth_view
 from . import views
 
 
@@ -11,9 +11,28 @@ urlpatterns = [
     # vendor register
     path('vendor-register/', views.VendorRegister.as_view(), name='vendor_register'),
 
-    
     # logout
     path('logout/', views.LogOutUserView.as_view(), name='logout'),
+    
+    # profiles
+    path('profile/', views.ProfileDispatcher.as_view(), name='profile_dispatcher'),
+    
+    # customer profile
+    path('CustomerDashboard/', views.CustomerProfileView.as_view(), name='customer_profile'),
+    
+    # admin profile
+    path('AdminDashboard/', views.AdminProfileView.as_view(), name='admin_profile'),
+    
+    # Customer Edit Profile
+    path('ProfileSettings/', views.CustomerEditProfileView.as_view(), name='edit_profile'),
+    
+    # Change Password
+    path('ChangePassword/', auth_view.PasswordChangeView.as_view(), name='change_password'),
 
+    # Change password Done
+    path('ChangePasswordDone/', auth_view.PasswordChangeDoneView.as_view(), name='password_change_done'),
+
+    # Set Password
+    path('SetPassword/', views.CustomerSetPassword.as_view(), name='set_password')
     
 ]

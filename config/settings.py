@@ -38,12 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     # 3rd Party Apps
     
     # Local Apps
     'pages.apps.PagesConfig',
     'accounts.apps.AccountsConfig',
     'vendors.apps.VendorsConfig',
+    'menu.apps.MenuConfig',
     
     
 ]
@@ -71,6 +73,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'accounts.context_processors.get_google_api_key',
             ],
         },
     },
@@ -151,8 +154,20 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # User Configuration
 AUTH_USER_MODEL = 'accounts.User'
 
+
+LOGOUT_REDIRECT_URL = 'pages:home'
+LOGIN_URL = 'send_otp'
+
+
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'accounts.authentications.PhoneBackend',
 
 ]
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+# google Api Key
+GOOGLE_API_KEY = 'AIzaSyC_ltfRnC73JJZUUiRWc3HrLLvKZ93AfUc'

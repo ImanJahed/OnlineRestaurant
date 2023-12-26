@@ -4,7 +4,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
-from accounts.models import User
+from accounts.models import Profile, User
 from vendors.models import Vendor
 class CreateUserForm(forms.ModelForm):
     password1 = forms.CharField(widget=forms.PasswordInput, label='Password')
@@ -62,15 +62,15 @@ class EditUserForm(forms.ModelForm):
     def clean_phone_number(self):
         phone_number = self.cleaned_data['phone_number']
         
-        if User.objects.exclude(phone_number=self.id).filter(phone_number=phone_number).exists():
+        if User.objects.filter(phone_number=phone_number).exclude(pk=self.instance.id).exists():
             raise ValidationError('Phone number already exist')
         
         return phone_number
     
     def clean_email(self):
-        email = self.cleaned_data['phone_number']
+        email = self.cleaned_data['email']
         
-        if User.objects.exclude(email=self.id).filter(email=email).exists():
+        if User.objects.filter(email=email).exclude(pk=self.instance.id).exists():
             raise ValidationError('Phone number already exist')
         
         return email
@@ -91,3 +91,48 @@ class VendorRegistrationForm(forms.ModelForm):
     class Meta:
         model = Vendor
         fields = ['name', 'license_file', 'profile_img', 'cover_img']
+        
+        widgets = {
+            'name': forms.TextInput(attrs={'class':'foodbakery-dev-req-field'}),
+            'license_file': forms.FileInput(attrs={'class':'btn btn-info'}),
+            'profile_img': forms.FileInput(attrs={'class':'btn btn-info'}),
+            'cover_img': forms.FileInput(attrs={'class':'btn btn-info'}),
+        }
+        
+        
+class CustomerSetPasswordForm(forms.Form):
+    new_password1 = forms.CharField(widget=forms.PasswordInput)
+    new_password2 = forms.CharField(widget=forms.PasswordInput)
+
+    def clean_password2(self):
+        password1 = self.cleaned_data['new_password1']
+        password2 = self.cleaned_data['new_password2']
+        
+        if password1 and password2 and password1 != password2:
+            raise ValidationError('Password Does not match')
+        
+        return password1
+    def __init__(self, user,*args, **kwargs):
+        self.user = user
+        return super().__init__(*args, **kwargs)
+    
+    def save(self, commit=True):
+        password = self.cleaned_data["new_password1"]
+        self.user.set_password(password)
+        
+        if commit:
+            self.user.save()
+        return self.user
+    
+    
+class CustomerEditForm(forms.ModelForm):
+    
+    class Meta:
+        model = Profile
+        exclude = ['user']
+        
+        widgets ={
+            'img_cover': forms.FileInput(attrs={'class': 'btn btn-info'}),
+            'img_profile': forms.FileInput(attrs={'class': 'btn btn-info'}),
+        }
+

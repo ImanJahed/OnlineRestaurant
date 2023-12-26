@@ -11,13 +11,18 @@
 	<link href="{% static 'css/style.css' %}" rel="stylesheet">
 	<link href="{% static 'css/cs-foodbakery-plugin.css' %}" rel="stylesheet">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link href="{% static 'css/bootstrap-slider.css' %}" rel="stylesheet">
 	
 	<!-- JAVASCRIPT -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="{% static 'js/modernizr.js' %}"></script>
 	<script src="{% static 'js/bootstrap.js' %}"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key={{GOOGLE_API_KEY}}&libraries=places&callback=initAutoComplete" async defer></script>
+	{% comment %} <script src="https://serpapi.com/search.json?engine=google_maps_autocomplete&ll=%4040.7455096%2C-74.0083012%2C14z&api_key=3cbcad064544e940fc7a465b547103835f7a17b04db3c93216f04b6ef2b11f36" ></script> {% endcomment %}
 
+	
+	<script src="{% static 'js/custom.js' %}"></script>
 	<style>
 		body, .main-section p, .mce-content-body p{
 			font:Normal  14px/24px "Open Sans", sans-serif;letter-spacing: 0px;text-transform: none;color: #515151 !important;
