@@ -15,9 +15,12 @@
                             <h4 class="text-center" style="margin-bottom: 0;">WELCOME TO FOODONLINE</h4>
                             <p class="text-center">Please fill this form to get yourself onboarded in the foodOnline marketplace.</p>
                             <hr>
+                            
+                            {% include 'includes/alert_message.html' %}
+                                
                             <div id="restaurant-sets-holder">
                                 <form class="form-fields-set foodbakery-dev-restaurant-form" method="post" action="{% url 'vendor_register' %}" enctype="multipart/form-data">
-                                  {% csrf_token %}
+                                    {% csrf_token %}
                                     <ul class="register-add-restaurant-tab-container restaurant-information-tab-container">
                                         <li>
                                             <div class="row">
@@ -61,14 +64,14 @@
                                                                     </div> 
                                                                     
                                                                     <div class="input-group">
-                                                                          <div class="input-group-prepend">
+                                                                        <div class="input-group-prepend">
                                                                             
-                                                                          </div>
-                                                                          <div class="custom-file">
+                                                                        </div>
+                                                                        <div class="custom-file">
                                                                             <input type="file" class="custom-file-input" id="inputGroupFile01" name='license_file'>
                                                                             <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                                                                          </div>
-                                                                      </div>
+                                                                        </div>
+                                                                    </div>
                                                                     
                                                                 </div>
                                                             </li>

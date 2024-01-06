@@ -3,9 +3,10 @@ from typing import Any
 from django import forms
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
-
+from django.template.defaultfilters import slugify
 from accounts.models import Profile, User
 from vendors.models import Vendor
+
 class CreateUserForm(forms.ModelForm):
     password1 = forms.CharField(widget=forms.PasswordInput, label='Password')
     password2 = forms.CharField(widget=forms.PasswordInput, label='Password Confirmation')
@@ -90,7 +91,7 @@ class VendorRegistrationForm(forms.ModelForm):
     
     class Meta:
         model = Vendor
-        fields = ['name', 'license_file', 'profile_img', 'cover_img']
+        fields = ['name', 'license_file']
         
         widgets = {
             'name': forms.TextInput(attrs={'class':'foodbakery-dev-req-field'}),
@@ -98,7 +99,19 @@ class VendorRegistrationForm(forms.ModelForm):
             'profile_img': forms.FileInput(attrs={'class':'btn btn-info'}),
             'cover_img': forms.FileInput(attrs={'class':'btn btn-info'}),
         }
+    def save(self, commit: bool = True) -> Any:
+        instance =  super().save(commit)
+        slug = slugify(self.cleaned_data['name'])
         
+        slug_query = Vendor.objects.filter(slug=slug)
+        if slug_query.exists():
+            slug = f'{slug} - {slug_query.count() + 1}'
+        
+        instance.slug = slug
+        if commit:
+            instance.save()
+            
+        return instance
         
 class CustomerSetPasswordForm(forms.Form):
     new_password1 = forms.CharField(widget=forms.PasswordInput)

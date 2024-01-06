@@ -24,7 +24,7 @@ class ProfileDispatcher(LoginRequiredMixin, View):
         elif request.user.roll == 2:
             return redirect('vendors:vendor_dashboard')
         
-        elif request.user.roll == None and request.user.is_superuser:
+        elif request.user.roll is None and request.user.is_superuser:
             return redirect('admin_profile')
 
         return super().dispatch(request, *args, **kwargs)
@@ -140,7 +140,8 @@ class VendorRegister(View):
             vendor_user.user = user
             vendor_user.vendor_profile = user.profile
             vendor_user.save()
-            
+            messages.success(request, 'Your account has been registered successfully! Please wait for the approval.')
+            return redirect('vendor_register')
             
         context = {
             'form_user': form_user,

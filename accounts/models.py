@@ -59,7 +59,7 @@ class User(AbstractBaseUser):
     
     
 def image_path_profile(instance, filename):
-    return f'user_img/{instance.user.phone_number}/{instance.first_name}/{filename}'
+    return f'img/{instance.user.roll}/{instance.user.phone_number}/{instance.first_name}/{filename}'
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     first_name = models.CharField(max_length=50)

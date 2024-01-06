@@ -40,14 +40,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     # 3rd Party Apps
-    
+
     # Local Apps
     'pages.apps.PagesConfig',
     'accounts.apps.AccountsConfig',
     'vendors.apps.VendorsConfig',
     'menu.apps.MenuConfig',
-    
-    
+    'marketplace.apps.MarketplaceConfig',
+
+
 ]
 
 MIDDLEWARE = [
@@ -74,6 +75,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'accounts.context_processors.get_google_api_key',
+                'marketplace.context_processors.cart',
+                
+                
             ],
         },
     },

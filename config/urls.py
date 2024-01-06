@@ -26,6 +26,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
 
     path('vendor/', include('vendors.urls')),
+    path('marketplace/', include('marketplace.urls'))
 
 ]
 
