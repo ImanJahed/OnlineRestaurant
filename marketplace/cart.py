@@ -70,9 +70,7 @@ class Cart:
         for item in cart.values():
             food = get_object_or_404(Food, pk=item['id'])
             item['food'] = model_to_dict(food)
-            # item['food'] = serializers.serialize('json', [food], fields=['vendor', 'category', 'food_name', 'description', 'slug', 'price', 'duration', 'is_available', 'food_img'])
             item['food']['food_img'] = food.food_img.url if food.food_img else ''
-
             item['price'] = food.price
             item['total_item_price'] = item['quantity'] * item['price']
             item['food_id'] = self._generate_unique_food_id(food)
@@ -97,7 +95,7 @@ class Cart:
 
     def total_price(self):
         """Order total price"""
-        
+
         return sum(item['total_item_price'] for item in self)
 
     def remove(self, food_id):
