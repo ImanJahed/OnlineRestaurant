@@ -6,7 +6,7 @@ from .models import Vendor, WorkingHours
 
 @admin.register(Vendor)
 class VendorAdmin(admin.ModelAdmin):
-    list_display = ['name', 'get_phone', 'get_email', 'is_approved']
+    list_display = ['name', 'get_phone', 'get_email', 'shipment', 'is_approved']
     list_editable = ['is_approved']
     
     

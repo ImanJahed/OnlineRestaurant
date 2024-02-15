@@ -1,0 +1,128 @@
+{% extends '_base.html' %}
+{% load static %}
+{% load class_name %}
+
+{% block title %}
+  Search
+{% endblock %}
+
+{% block content %}
+  <div class="main-section">
+    <!-- Home Pages Elements Strat -->
+    <!-- Main Search Start -->
+    <div class="page-section nopadding cs-nomargin" style="padding-top: 200px; padding-bottom: 150px; margin-bottom: 0px; background: url({% static 'extra-images/bg-image1.jpg' %}) no-repeat center / cover;">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="element-title">
+              <h1 style="font-size: 40px; color: #505050; text-transform: uppercase; line-height: 50px; margin-bottom: 25px; text-align:center;">We are in the business of food<br />our restaurants do</h1>
+              <p style="font-size: 18px; letter-spacing: 1px; color: #505050; text-align:center;">Ridiculus sociosqu cursus neque cursus curae ante scelerisque vehicula.</p>
+            </div>
+          </div>
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Main Search End -->
+
+    <!-- Top Restarurants Section Start -->
+    <div class="page-section nopadding cs-nomargin" style="margin-top: 0px;padding-top: 60px;padding-bottom: 50px;margin-bottom: 0px;background: #ffffff;">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="element-title align-center">
+              <h2>Search For:</h2>
+              <p>{{ q }}</p>
+            </div>
+          </div>
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="listing fancy">
+              <ul class="row">
+                {% for result in results %}
+                  {% with result|class_name as klass %}
+                    {% if klass == 'Vendor' %}
+                      <li class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="list-post featured">
+                          <div class="img-holder">
+                            <figure>
+                              <a href="{% url 'vendor_detail' result.slug %}">
+                                {% if pap.vendor_profile.img_profile %}
+                                  <img src="{{ pap.vendor_profile.img_profile.url }}" class="img-thumb wp-post-image" alt="" />
+                                {% else %}
+                                  <img src="{% static 'extra-images/listing-logo18.png' %}" class="img-thumb wp-post-image" alt="" />
+                                {% endif %}
+                              </a>
+                            </figure>
+                            <span class="restaurant-status close"><em class="bookmarkRibbon"></em>Close</span>
+                          </div>
+                          <div class="text-holder">
+                            <div class="list-rating">
+                              <div class="rating-star">
+                                <span class="rating-box" style="width: 100%;"></span>
+                              </div>
+                              <span class="reviews">(1)</span>
+                            </div>
+                            <div class="post-title">
+                              <h5>
+                                <a href="{% url 'vendor_detail' result.slug %}">{{ result.name }}</a>
+                                <span class="sponsored text-color">Sponsored</span>
+                              </h5>
+                            </div>
+
+                            <address>
+                              <span>Type of food :</span> {{ result.cat_vendor.all.first }}/{{ result.vendor_profile.address }}>
+                            </address>
+                          </div>
+                        </div>
+                      </li>
+                    {% elif klass == 'Food' %}
+                      <li class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="list-post featured">
+                          <div class="img-holder">
+                            <figure>
+                              <a href="{% url 'vendor_detail' result.vendor.slug %}">
+                                {% if result.food_img %}
+                                  <img src="{{ result.food_img.url }}" class="img-thumb wp-post-image" alt="" />
+                                {% else %}
+                                  <img src="{% static 'extra-images/listing-logo18.png' %}" class="img-thumb wp-post-image" alt="" />
+                                {% endif %}
+                              </a>
+                            </figure>
+                          </div>
+                          <div class="text-holder">
+                            <div class="list-rating">
+                              <div class="rating-star">
+                                <span class="rating-box" style="width: 100%;"></span>
+                              </div>
+                              <span class="reviews">(1)</span>
+                            </div>
+                            <div class="post-title">
+                              <h5>
+                                <a href="{% url 'vendor_detail' klass %}">{{ result.food_name }}</a>
+                                <span class="sponsored text-color">Sponsored</span>
+                              </h5>
+                            </div>
+                            <address>
+                              <span>Type of food :</span> {{ result.category.name }}>
+                            </address>
+                          </div>
+                        </div>
+                      </li>
+                    {% endif %}
+                  {% endwith %}
+                  {% empty %}
+                  <div class="color-danger" style="margin: 0 auto; color: red;">
+                    <h1 style="color: red  !important;">Nothing Found For {{ q }}</h1>
+                  </div>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Main Section End -->
+{% endblock %}

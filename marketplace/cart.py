@@ -53,7 +53,9 @@ class Cart:
             self.cart[food_id] = {
                 "food_name": food.food_name,
                 "quantity": 1,
-                "vendor_id": food.vendor.name,
+                "vendor_name": food.vendor.name,
+                "vendor_id": food.vendor.id,
+                "vendor_slug": food.vendor.slug,
                 "id": food.id,
                 'food_id': food_id
             }
@@ -61,57 +63,42 @@ class Cart:
             self.cart[food_id]["quantity"] += 1
 
         self.save()
-        
+
     def __iter__(self):
         cart = self.cart.copy()
 
         for item in cart.values():
-            # برای تبدیل یه کوئری ست به جیسون به دو روش میتوان عمل کرد
-            
-            # 1- 
-            # from django.core.serializers import serialize
-            # food_json = serialize("json", Food.objects.all())
-            # 2-
-            # food_list = list(Food.objects.values())
-
-            
-            
-            food = get_object_or_404(Food, pk=item['id'])  # برای تبدیل کرد آبحکت یک مدل به جیسون  (json) 
-            # item['food'] = model_to_dict(food)
+            food = get_object_or_404(Food, pk=item['id'])
+            item['food'] = model_to_dict(food)
             # item['food'] = serializers.serialize('json', [food], fields=['vendor', 'category', 'food_name', 'description', 'slug', 'price', 'duration', 'is_available', 'food_img'])
-            # item['food']['food_img'] = food.food_img.url if food.food_img else ''
-           
+            item['food']['food_img'] = food.food_img.url if food.food_img else ''
+
             item['price'] = food.price
             item['total_item_price'] = item['quantity'] * item['price']
             item['food_id'] = self._generate_unique_food_id(food)
             yield item
-        
+
     def decrease(self, food):
         food_id = self._generate_unique_food_id(food)
-        
+
         if self.cart[food_id]['quantity'] >= 1:
             self.cart[food_id]['quantity'] -= 1
-       
-            
+
+
         self.save()
-        
-        
+
+
     def total(self):
         """
         All quantity item in the cart
         """
-        
+
         return sum(item["quantity"] for item in self.cart.values())
 
     def total_price(self):
+        """Order total price"""
         
         return sum(item['total_item_price'] for item in self)
-    
-        # total = 0
-        # for item in self:
-        #     total += item['total_item_price']
-        # return total
-
 
     def remove(self, food_id):
         """

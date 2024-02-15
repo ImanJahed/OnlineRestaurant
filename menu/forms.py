@@ -24,7 +24,7 @@ class CategoryForm(forms.ModelForm):
         slug = slugify(self.cleaned_data['name'])
         queryset = Category.objects.filter(slug=slug)
         if queryset.exists():
-            slug = slugify(f"{self.cleaned_data['name']} - {queryset.count() + 1}")
+            slug = slugify(f"{self.cleaned_data['name']}-{queryset.count() + 1}")
 
         instance.slug = slug
         

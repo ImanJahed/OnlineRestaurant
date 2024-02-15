@@ -10,8 +10,14 @@
       <li class="{% if request.resolver_match.url_name == 'menu_builder' %}active{% endif %}">
         <a href="{% url 'vendors:menu_builder' %}"><i class="icon-menu5"></i>Menu Builder</a>
       </li>
-      <li>
-        <a href="restaurant-orders.html"><i class="icon-add_shopping_cart"></i>Orders</a>
+
+      <li class="{% if request.resolver_match.url_name == 'working_hours' %}active{% endif %}">
+        <a href="{% url 'vendors:working_hours' %}"><i class="icon-clock"></i>Working Hours</a>
+      </li>
+
+
+      <li class="{% if request.resolver_match.url_name == 'vendor_order' %}active{% endif %}">
+        <a href="{% url 'vendors:vendor_order' %}"><i class="icon-add_shopping_cart"></i>Orders</a>
       </li>
       <li>
         <a href="restaurant-earnings.html"><i class="icon-money"></i>Earnings</a>

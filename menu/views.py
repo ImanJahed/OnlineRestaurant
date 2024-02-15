@@ -87,14 +87,6 @@ class CategoryDetailView(DetailView):
         return context
 
 
-# class CategoryDeleteView(View):
-#     def get(self,request,pk):
-#         return self.post(request, pk)
-#     def post(self, request, pk):
-#         obj = get_object_or_404(Category, pk=pk)
-#         obj.delete()
-#         return redirect('vendors:menu_builder')
-
 
 class CategoryDeleteView(DeleteView):
     model = Category
@@ -136,10 +128,6 @@ class FoodUpdateView(PassRequestToFormMixin, UpdateView):
 
         return reverse("vendors:category_detail", kwargs={"slug": category.slug})
 
-    # def get_queryset(self, *args, **kwargs):
-    #     qs = super().get_queryset(*args, **kwargs)
-    #     qs = qs.filter(vendor__user=self.request.user)
-    #     return qs
 
 
 class FoodDeleteView(DeleteView):

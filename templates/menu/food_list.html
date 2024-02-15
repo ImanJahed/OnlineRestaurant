@@ -45,45 +45,45 @@
                         <td class="text-left">{{ forloop.counter }}</td>
                         <td class="text-left"><img src="{{food.food_img.url}}" alt="Food Image" width="40"></td>
                         <td class="text-left">
-                          <a href="">  
+                          <a href="">
                             <p class="mb-0 font-weight-bold">{{ food.food_name }}</p>
                             <small class="text-muted">{{food.description}}</small></a>
                           </a>
                         </td>
                         <td class="text-left">
-                          <a href="">  
+                          <a href="">
                             <p class="mb-0 font-weight-bold">{{ food.price|intcomma }} T</p>
-                            
+
                           </a>
                         </td>
                         <td class="text-left">
-                          <a href="">  
+                          <a href="">
                             <p class="mb-0 font-weight-bold">{{ food.duration }} min</p>
-                            
+
                           </a>
                         </td>
                         <td class="text-center">
-                          <a href="">  
-                            
+                          <a href="">
+
                             {% if food.is_available %}
                             <span class="badge badge-success">Available</span>
                             {% else %}
                               <span class="badge badge-danger">Not Available</span>
                             {% endif %}
-                              
-                            
+
+
                           </a>
                         </td>
                         <td class="text-right">
-                          {% comment %} <form action="" method="post" class="d-flex justify-content-end"> {% endcomment %}
+
                           <a href="{% url 'vendors:food_update' food.id %}" style="color:unset;" class="mx-2"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                           &nbsp;
-                            {% comment %} {% csrf_token %} {% endcomment %}
+
                             <a href="{% url 'vendors:food_delete' food.id %}" onclick="return confirm('Are you sure you want to delete this category?')"><i class="fa fa-trash text-danger" aria-hidden="true"></i></a>
-                          {% comment %} </form> {% endcomment %}
+
                         </td>
                       </tr>
-                      
+
                     {% endfor %}
                   </tbody>
                 </table>

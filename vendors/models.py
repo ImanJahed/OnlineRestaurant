@@ -21,6 +21,8 @@ class Vendor(models.Model):
     
     is_approved = models.BooleanField(default=False)
     
+    shipment = models.FloatField(default=0)
+    
     def __str__(self):
         return self.name
     

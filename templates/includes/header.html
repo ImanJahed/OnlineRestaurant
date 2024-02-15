@@ -18,16 +18,15 @@
           <div class="main-location center">
             <ul>
               <li class="location-has-children choose-location">
-                <form action="#">
-                  <input type="text" value="" name="location" placeholder="Enter your delivery location" autocomplete="off" />
-                  <span id="foodbakery_radius_location_open" class="foodbakery-radius-location"><i class="icon-target5"></i></span>
+                <form action="{% url 'pages:search' %}">
+                  <input type="text" value="" name="q" placeholder="Enter your Food Or Restaurant" autocomplete="off" />
                 </form>
               </li>
             </ul>
           </div>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-          
+
           <div class="login-option">
             <a href="{% url 'cart' %}" style="margin-right: 10px;">
               <i class="fa fa-shopping-cart text-danger" style="font-size: 20px; vertical-align: middle;"></i>

@@ -105,7 +105,7 @@ class VendorRegistrationForm(forms.ModelForm):
         
         slug_query = Vendor.objects.filter(slug=slug)
         if slug_query.exists():
-            slug = f'{slug} - {slug_query.count() + 1}'
+            slug = f'{slug}-{slug_query.count() + 1}'
         
         instance.slug = slug
         if commit:

@@ -39,19 +39,25 @@
                   <li>
                     <a href="#" class="reviews-sortby-active">
                       <span>Today :</span>
-                      {% if today_hour.is_closed %}
+
+                      {% for today in today_hour %}
+
+
+                      {% if today.is_closed %}
                       Close<i class="icon-chevron-small-down"></i>
 
                       {% else %}
-                      {{today_hour.from_hour}} - {{today_hour.to_hour}}<i class="icon-chevron-small-down"></i>
+                      {{today.from_hour}} - {{today.to_hour}}<i class="icon-chevron-small-down"></i>
 
                       {% endif %}
+                      {% endfor %}
+
                     </a>
                     <ul class="delivery-dropdown">
-                      
+
                       {% for workhour in working_hour %}
-                        
-                      
+
+
                         {% if workhour.is_closed %}
                         <li>
                           <a href="#"><span class="opend-day">{{workhour.get_days_display}}</span> <span class="opend-time text-danger"><small></small>CLOSE</span></a>
@@ -61,25 +67,6 @@
                           <a href="#"><span class="opend-day">{{workhour.get_days_display}}</span> <span class="opend-time"><small></small> {{workhour.from_hour}} - {{workhour.to_hour}}</span></a>
                         </li>
                         {% endif %}
-
-                      {% comment %} <li>
-                        <a href="#"><span class="opend-day">Tuesday</span> <span class="opend-time"><small>:</small> 11:00 am - 11:00 pm</span></a>
-                      </li>
-                      <li>
-                        <a href="#"><span class="opend-day">Wednesday</span> <span class="opend-time"><small>:</small> 11:00 am - 11:00 pm</span></a>
-                      </li>
-                      <li>
-                        <a href="#"><span class="opend-day">Thursday</span> <span class="opend-time"><small>:</small> 11:00 am - 11:00 pm</span></a>
-                      </li>
-                      <li>
-                        <a href="#"><span class="opend-day">Friday</span> <span class="opend-time"><small>:</small> 11:00 am - 11:00 pm</span></a>
-                      </li>
-                      <li>
-                        <a href="#"><span class="opend-day">Saturday</span> <span class="opend-time"><small>:</small> 11:00 am - 11:00 pm</span></a>
-                      </li>
-                      <li>
-                        <a href="#"><span class="opend-day">Sunday</span> <span class="opend-time close-day"><small>:</small>Closed</span></a>
-                      </li> {% endcomment %}
                       {% endfor %}
                     </ul>
                   </li>
@@ -135,6 +122,7 @@
                         </div>
                         <ul>
                           {% for food in category.food_cat.all %}
+
                             <li class="px-5">
                               <div class="image-holder">
                                 <img src="{% if food.food_img %}
@@ -150,7 +138,7 @@
                               </div>
                               <div class="price-holder">
                                 <span class="price">{{ food.price|intcomma }} T</span>
-                                
+
                                 <a href="" data-food-id="{{ food.id }}" data-url="{% url 'decrease_cart_item' %}" class="decrease-qty"><i class="icon-minus3 text-color" style="margin-left: 30px;"></i></a>
 
                                 <label id="qty-{{food.id}}"  style="margin: 0 10px;">0</label>
@@ -160,16 +148,15 @@
                                 <span id="add-menu-loader-10"></span>
                                 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}" />
 
-                                {% comment %} <a href="" class="add-to-cart btn-sm btn-success" data-csrf="{{ csrf_token }}" data-url="{% url 'add_to_cart' %}" data-product-id="{{ food.id }}" style="margin-left: 60px;">Add To Cart</a> {% endcomment %}
                               </div>
                             </li>
-                           
+
                           {% endfor %}
                         </ul>
                       {% endfor %}
                     </div>
                     {% for item in cart %}
-                
+
                     <span id="qty-{{item.id}}" class="item_qty d-none" data-qty="{{ item.quantity }}">{{ item.quantity }}</span>
 
                     {% endfor %}

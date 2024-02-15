@@ -1,0 +1,50 @@
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+
+{% if orders.has_previous %}
+<li class="page-item ">
+  <a href="?page={{ orders.previous_page_number }}" class="page-link">« Previous page</a>
+</li>
+
+  {% if orders.number > 3 %}
+  <li class="page-item">
+    <a href="?page=1" class="page-link">1</a>
+  </li>
+    {% if orders.number > 4 %}
+      <span>...</span>
+    {% endif %}
+  {% endif %}
+{% endif %}
+
+{% for num in orders.paginator.page_range %}
+  {% if orders.number == num %}
+  <li class="page-item active" >
+    <a href="?page={{ num }}" class="page-link">{{ num }}</a>
+  </li>
+  {% elif num > orders.number|add:'-3' and num < orders.number|add:'3' %}
+  <li class="page-item">
+    <a href="?page={{ num }}" class="page-link">{{ num }}</a>
+  </li>
+  {% endif %}
+{% endfor %}
+
+{% if orders.has_next %}
+  {% if orders.number < orders.paginator.num_pages|add:'-3' %}
+    <span>...</span>
+    <li class="page-item">
+    <a href="?page={{ orders.paginator.num_pages }}" class="page-link">{{ orders.paginator.num_pages }}</a>
+    </li>
+  {% elif orders.number < orders.paginator.num_pages|add:'-2' %}
+    <li class="page-item">
+    <a href="?page={{ orders.paginator.num_pages }}" class="page-link">{{ orders.paginator.num_pages }}</a>
+    </li>
+  {% endif %}
+  <li class="page-item">
+  <a href="?page={{ orders.next_page_number }}" class="page-link">Next Page »</a>
+  </li>
+{% endif %}
+
+
+ 
+  </ul>
+</nav>

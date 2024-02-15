@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'vendors.apps.VendorsConfig',
     'menu.apps.MenuConfig',
     'marketplace.apps.MarketplaceConfig',
+    'order.apps.OrderConfig',
 
 
 ]
@@ -59,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'order.request_object.RequestObjectMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -76,8 +78,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'accounts.context_processors.get_google_api_key',
                 'marketplace.context_processors.cart',
-                
-                
+
+
             ],
         },
     },
@@ -88,13 +90,6 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 
 DATABASES = {
     'default': {
@@ -174,4 +169,4 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 # google Api Key
-GOOGLE_API_KEY = 'AIzaSyC_ltfRnC73JJZUUiRWc3HrLLvKZ93AfUc'
+GOOGLE_API_KEY = config('GOOGLE_API_KEY')

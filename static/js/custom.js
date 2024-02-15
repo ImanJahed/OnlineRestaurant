@@ -283,6 +283,80 @@ $(document).ready(function() {
         } 
     }
 
+    // Working Hours Add
+
+    $('.add_hour').on('click', function(e){
+        e.preventDefault();
+        let days = document.getElementById('id_days').value
+        let from_hour = document.getElementById('id_from_hour').value
+        let to_hour = document.getElementById('id_to_hour').value
+        let is_closed = document.getElementById('id_is_closed').checked
+        let csrf_token = $('input[name=csrfmiddlewaretoken]').val()
+        let url = document.getElementById('add_hour_url').value
+
+        if(is_closed){
+            is_closed = 'True'
+            condition = "days != '' "
+        }else{
+            is_closed = "False"
+            condition = "days != '' && from_hour != '' && to_hour != '' "
+        }
+
+        if (eval(condition)){
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data:{
+                    'days': days,
+                    'from_hour': from_hour,
+                    'to_hour': to_hour,
+                    'is_closed': is_closed,
+                    'csrfmiddlewaretoken': csrf_token
+                },
+                success: function(response){
+                    if(response.status == 'success'){
+                        if(response.is_closed == 'Closed'){
+                            html = '<tr id="hour-'+response.id+' "><td><b>'+response.days+'</b></td><td>Closed</td><td><a href="#" class="remove_hour" data-url="/vendor/opening-hours/remove/'+response.id+'/">Remove</a></td></tr>';
+                        }else{
+                            html = '<tr id="hour-'+response.id+'"><td><b>'+response.days+'</b></td><td>'+response.from_hour+' - '+response.to_hour+'</td><td><a href="#" class="remove_hour" data-url="/vendor/opening-hours/remove/'+response.id+'/">Remove</a></td></tr>';
+                        }
+
+                        $('.opening_hours').append(html)
+                        document.getElementById('opening_hours').reset()
+                    }else{
+                        swal(response.message, "", "error")
+                    }
+                }
+            })
+        }else{
+            swal('Please fill all fields', '', 'info')
+        }
+
+    });
+
+
+ // REMOVE Working Hours
+ $(document).on('click', '.remove_hour', function(e){
+    e.preventDefault();
+    url = $(this).attr('data-url');
+    id = $(this).attr('data-id');
+
+    $.ajax({
+        type: 'GET',
+        url: url,
+        success: function(response){
+            if(response.status == 'success'){
+                document.getElementById('hour-'+response.id).remove()
+            }
+        }
+    })
+})
+
+// document ready close 
+
+
+
+
 });
 
 

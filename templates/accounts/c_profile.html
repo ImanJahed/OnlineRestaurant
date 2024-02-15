@@ -52,48 +52,43 @@
                             <div>Received</div>
                             <div>Status</div>
                           </li>
-                          <li class="order-heading-titles">
-                            <div>
-                              <a href="#" data-toggle="modal" data-target="#order-det-22606">order-22606</a>
-                            </div>
-                            <div>Apr 9,2020</div>
-                            <div>£ 38.99</div>
-                            <div>£ 3.90</div>
-                            <div>£ 35.09</div>
-                            <div>
-                              <span class="order-status" style="background-color: #047a06;">Completed</span>
-                            </div>
-                          </li>
+
+                          {% for ord in orders %}
+
 
                           <li class="order-heading-titles">
                             <div>
-                              <a href="#" data-toggle="modal" data-target="#order-det-22606">order-22583</a>
+                              <a href="#" data-toggle="modal" data-target="#order-det-22606">{{ord.order_id}}</a>
                             </div>
-                            <div>Apr 9,2020</div>
-                            <div>£ 26.22</div>
-                            <div>£ 2.62</div>
-                            <div>£ 23.60</div>
+                            <div>{{ord.created_at|date:'Y-m-d'}}</div>
+                            <div>{{ord.total_price}}</div>
+                            <div>£ 3.90</div>
+                            <div>£ 35.09</div>
+
                             <div>
-                              <span class="order-status" style="background-color: #1e73be;">Processing</span>
+                              <span
+                               class="order-status"
+                               {% if ord.status == 1 %}
+                               style="background-color: #43B7FF;"
+                               {% elif ord.status == 2 %}
+                               style="background-color: #FABE77;"
+                               {% elif ord.status == 3 %}
+                               style="background-color: #62A964;"
+                               {% elif ord.status == 4 %}
+                               style="background-color: #047a06;"
+                               {% elif ord.status == 5 %}
+                               style="background-color: #D2292C;"
+                               {% endif %}>
+                              {{ord.get_status_display}}</span>
                             </div>
                           </li>
-                          <li class="order-heading-titles">
-                            <div>
-                              <a href="#" data-toggle="modal" data-target="#order-det-22606">order-22493</a>
-                            </div>
-                            <div>Apr 2,2020</div>
-                            <div>£ 28.24</div>
-                            <div>£ 2.82</div>
-                            <div>£ 25.42</div>
-                            <div>
-                              <span class="order-status" style="background-color: #047a06;">Completed</span>
-                            </div>
-                          </li>
+                          {% endfor %}
                         </ul>
                       </div>
                     </div>
                   </div>
                 </div>
+                {% include 'includes/pagination.html' %}
               </div>
             </div>
           </div>

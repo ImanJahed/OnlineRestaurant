@@ -20,10 +20,21 @@
 	<script src="{% static 'js/modernizr.js' %}"></script>
 	<script src="{% static 'js/bootstrap.js' %}"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key={{GOOGLE_API_KEY}}&libraries=places&callback=initAutoComplete" async defer></script>
+
 	{% comment %} <script src="https://serpapi.com/search.json?engine=google_maps_autocomplete&ll=%4040.7455096%2C-74.0083012%2C14z&api_key=3cbcad064544e940fc7a465b547103835f7a17b04db3c93216f04b6ef2b11f36" ></script> {% endcomment %}
 
-	
 	<script src="{% static 'js/custom.js' %}"></script>
+
+	<!-- Include DataTable -->
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+  
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+	<script>
+			$(document).ready( function () {
+				$('#myOrdersTable').DataTable();
+			} );
+		 
+	</script>
 	<style>
 		body, .main-section p, .mce-content-body p{
 			font:Normal  14px/24px "Open Sans", sans-serif;letter-spacing: 0px;text-transform: none;color: #515151 !important;

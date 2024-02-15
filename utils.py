@@ -8,3 +8,4 @@ def is_vendor(user):
     if user.roll == 2:
         return True
     return False
+

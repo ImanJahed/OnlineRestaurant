@@ -13,7 +13,7 @@
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 							<div class="row">
 								<aside class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-									
+
 								</aside>
 								<div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
 									<div class="listing-sorting-holder">
@@ -25,18 +25,18 @@
 									</div>
 									<div class="listing simple">
 										<ul>
-                      
+
                       {% for vendor in vendor_list %}
-                      
+
 											<li>
 												<div class="img-holder">
 													<figure>
-														
+
 														<a href="#">
 															<img src="{% if vendor.vendor_profile.img_profile %}{{vendor.vendor_profile.img_profile.url }}{% else %}{% static 'extra-images/listing-logo18.png' %}{% endif %}" class="img-list wp-post-image" alt="">
 														</a>
 													</figure>
-													
+
 													<span class="restaurant-status {% if vendor.is_open %}open{% else %}close{% endif %}"><em class="bookmarkRibbon"></em>{% if vendor.is_open %}Open{% else %}Close{% endif %}</span>
 												</div>
 												<div class="text-holder">
@@ -52,9 +52,7 @@
 															<span class="sponsored text-color"></span>
 														</h5>
 													</div>
-													{% comment %} <span class="post-categories"><span>Type of food :
-														</span> Apple Juice</span> {% endcomment %}
-													
+
 												</div>
 												<div class="list-option">
 
@@ -62,11 +60,11 @@
 												</div>
 											</li>
                       {% endfor %}
-											
+
 
 										</ul>
 									</div>
-									
+
 								</div>
 
 							</div>

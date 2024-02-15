@@ -32,13 +32,12 @@
                             <a href="{% url 'vendors:category_detail' cat.slug %} "><p class="mb-0 font-weight-bold">{{ cat.name }}</p></a>
                           </td>
                           <td class="text-right">
-                            {% comment %} <form action="" method="post" class="d-flex justify-content-end">
-                              {% endcomment %}
+
+
                               <a href="{% url 'vendors:category_update' cat.id %}" style="color:unset;" class="mx-2"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                              &nbsp;{% comment %} {% csrf_token %} {% endcomment %}
+                              &nbsp;
                               <a href="{% url 'vendors:category_delete' cat.id %}" onclick="return confirm('Are you sure you want to delete this category?')"><i class="fa fa-trash text-danger" aria-hidden="true"></i></a>
-                              {% comment %}
-                            </form> {% endcomment %}
+
                           </td>
                         </tr>
                       {% endfor %}
@@ -92,13 +91,11 @@
                             </a>
                           </td>
                           <td class="text-right">
-                            {% comment %} <form action="" method="post" class="d-flex justify-content-end">
-                              {% endcomment %}
+
                               <a href="{% url 'vendors:food_update' food.id %}" style="color:unset;" class="mx-2"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                              &nbsp;{% comment %} {% csrf_token %} {% endcomment %}
+                              &nbsp;
                               <a href="{% url 'vendors:food_delete' food.id %}" onclick="return confirm('Are you sure you want to delete this category?')"><i class="fa fa-trash text-danger" aria-hidden="true"></i></a>
-                              {% comment %}
-                            </form> {% endcomment %}
+
                           </td>
                         </tr>
                       {% endfor %}

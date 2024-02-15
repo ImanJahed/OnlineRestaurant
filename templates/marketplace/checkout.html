@@ -1,0 +1,152 @@
+{% extends '_base.html' %}
+{% load static %}
+{% load humanize %}
+
+
+{% block content %}
+  <!-- Main Section Start -->
+  <div class="main-section pt-5">
+    <div class="page-section">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="tabs-holder horizontal">
+              <ul class="stickynav-tabs nav nav-tabs">
+                <li class="active">
+                  <a data-toggle="tab" href="#home"><i class="fa fa-shopping-cart text-danger"></i>Billing Address</a>
+                </li>
+              </ul>
+              <form action="{% url 'checkout' %}" method="POST">
+                {% csrf_token %}
+              <div class="tab-content">
+                <div id="home" class="tab-pane in active">
+                  <div class="menu-itam-holder">
+                    <div id="menu-item-list-6272" class="menu-itam-list">
+
+
+                        <div class="row">
+                          <div class="form-group col-md-6 col-sm-12 col-lg-6">First Name: {{ form.first_name }}</div>
+                          <div class="form-group col-md-6 col-sm-12 col-lg-6">Last Name: {{ form.last_name }}</div>
+                        </div>
+
+                        <div class="row">
+                          <div class="form-group col-md-6 col-sm-12 col-lg-6">Phone Number: {{ form.phone_number }}</div>
+                          <div class="form-group col-md-6 col-sm-12 col-lg-6">Email Address: {{ form.email }}</div>
+                        </div>
+
+                        <div class="row">
+                          <div class="form-group col-md-12 col-sm-12 col-lg-12">Address: {{ form.address }}</div>
+                        </div>
+
+                        <div class="row">
+                          <div class="form-group col-md-6 col-sm-12 col-lg-6">City: {{ form.city }}</div>
+
+                          <div class="form-group col-md-6 col-sm-12 col-lg-6">State: {{ form.state }}</div>
+                        </div>
+
+                        <div class="row">
+                          <div class="text-danger">
+
+                            {% for fields in form %}
+                              {% for error in fields.errors %}
+                                <li>{{error}}</li>
+                              {% endfor %}
+                            {% endfor %}
+
+                          </div>
+                        </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Your order section -->
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="tabs-holder horizontal">
+              <ul class="stickynav-tabs nav nav-tabs">
+                <li class="active">
+                  <a data-toggle="tab" href="#home"><i class="icon- icon-room_service"></i>Your Order</a>
+                </li>
+              </ul>
+              <div class="tab-content">
+                <div id="home" class="tab-pane in active">
+                  <div class="menu-itam-holder">
+                    <div id="menu-item-list-6272" class="menu-itam-list">
+
+                      <ul>
+                        {% for item in cart %}
+
+                          <li id="cart-item-{{ item.id }}">
+                            <div class="image-holder">
+                              <img src="{{ item.food.food_img }}" alt="" />
+                            </div>
+                            <div class="text-holder">
+                              <h6>{{ item.food_name }}</h6>
+
+                              <a href="{% url 'vendor_detail' item.vendor_slug %}" class="badge badge-warning">{{ item.vendor_id }}</a>
+                            </div>
+
+                            <div class="quantity" style="display: inline-block; position: absolute; top: 50%; transform: translateY(-50%); margin-top: -10px;">
+                              <span>{{ item.quantity }} QTY</span>
+                            </div>
+                            <div class="price-holder">
+                              <span class="price">{{ item.food.price|intcomma }} T</span>
+                            </div>
+                          </li>
+                        {% endfor %}
+                      </ul>
+
+                    </div>
+
+                    <div>
+                      <ul>
+
+                        <li style="list-style-type: none;">
+                          Shipment
+                          <span class="price float-right">
+                            <span class="currency">$</span>
+                            <span id="subtotal">{{ total_shipment }}</span>
+                            <input type="hidden" name="total_shipment" value="{{ total_shipment }}" >
+
+                          </span>
+                        </li>
+
+                        <li style="list-style-type: none>
+                          SUBTOTAL
+                          <span class="price float-right">
+                            <input type="hidden" name="total_price" value="{{ cart.total_price }}" >
+                            <span id="total">{{ cart.total_price|intcomma }}</span>
+                            <span class="currency">T</span>
+                          </span>
+                        </li>
+
+                        <li style="list-style-type: none; font-weight: 600;">
+                          TOTAL
+                          <span class="price float-right">
+                            <input type="hidden" name="total_price" value="{{ cart.total_price }}" >
+                            <span id="total">{{ cart.total_price|add:total_shipment|intcomma }}</span>
+                            <span class="currency">T</span>
+                          </span>
+                        </li>
+
+                        <button type="submit" class="btn btn-danger w-100 p-2 mt-3">PLACE ORDER</button>
+                      </ul>
+                    </form>
+
+                      <!-- end the form -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Main Section End -->
+{% endblock %}
