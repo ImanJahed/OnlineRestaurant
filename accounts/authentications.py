@@ -12,13 +12,11 @@ class PhoneBackend(BaseBackend):
             user = User.objects.get(
                 Q(phone_number=username) | Q(email=username)
             )
-            print(1)
+            
         except User.DoesNotExist:
-            print(2)
             return None
 
         if user and check_password(password, user.password):
-            print(3)
             return user
 
         return None
